@@ -1,0 +1,10 @@
+html,
+body,
+#root,
+#root > div {
+  height: 100%;
+}
+
+.MuiContainer-root {
+  padding: 2rem 0;
+}
