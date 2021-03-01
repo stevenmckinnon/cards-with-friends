@@ -21,12 +21,12 @@ import { darkTheme, lightTheme } from "./themes";
 import NotFound from "./pages/NotFound";
 
 firebase.initializeApp({
-  apiKey: "AIzaSyD3bLrKyx6WgL37vzPrbfFdniIIhGVdSW8",
-  authDomain: "cards-with-friends-22993.firebaseapp.com",
-  projectId: "cards-with-friends-22993",
-  storageBucket: "cards-with-friends-22993.appspot.com",
-  messagingSenderId: "962205413317",
-  appId: "1:962205413317:web:b0174f5dc2e1557f77a5ac",
+  apiKey: process.env.REACT_APP_API_KEY,
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_APP_ID,
 });
 
 export const auth = firebase.auth();
