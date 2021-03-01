@@ -11,13 +11,14 @@ import "firebase/firestore";
 import "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import "./App.css";
-import { Route, Switch } from "react-router";
+import { Redirect, Route, Switch } from "react-router";
 import GameBoard from "./pages/gameboard";
 import AppShell from "./layouts/AppShell";
 import Login from "./pages/login";
 import Games from "./pages/games";
 import CreateGame from "./pages/create-game";
 import { darkTheme, lightTheme } from "./themes";
+import NotFound from "./pages/NotFound";
 
 firebase.initializeApp({
   apiKey: "AIzaSyD3bLrKyx6WgL37vzPrbfFdniIIhGVdSW8",
@@ -30,6 +31,16 @@ firebase.initializeApp({
 
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
+
+// Configure FirebaseUI.
+export const uiConfig = {
+  // Popup signin flow rather than redirect flow.
+  signInFlow: "popup",
+  // Redirect to /signedIn after sign in is successful. Alternatively you can provide a callbacks.signInSuccess function.
+  signInSuccessUrl: "/",
+  // We will display Google and Facebook as auth providers.
+  signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID],
+};
 
 function App() {
   const [user] = useAuthState(auth);
@@ -52,6 +63,10 @@ function App() {
             <Route exact path="/" component={Games} />
             <Route path="/game/:gameId" component={GameBoard} />
             <Route path="/create-game" component={CreateGame} />
+            <Route path="/not-found" component={NotFound} />
+            <Route>
+              <Redirect to="/not-found" />
+            </Route>
           </Switch>
         </AppShell>
       )}

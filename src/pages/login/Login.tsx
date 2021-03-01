@@ -1,23 +1,40 @@
-import React from "react";
+import {
+  createStyles,
+  makeStyles,
+  Paper,
+  Theme,
+  Typography,
+} from "@material-ui/core";
 import Container from "@material-ui/core/Container";
-import { Button, Typography } from "@material-ui/core";
-import firebase from "firebase";
-import { auth } from "../../App";
+import React from "react";
+import { StyledFirebaseAuth } from "react-firebaseui";
+import { auth, uiConfig } from "../../App";
 
 interface ILogin {}
 
-const Login: React.FC<ILogin> = () => {
-  const signInWithGoogle = () => {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    auth.signInWithPopup(provider);
-  };
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      padding: theme.spacing(2),
+      textAlign: "center",
+    },
+    title: {
+      marginBottom: theme.spacing(2),
+    },
+  })
+);
 
+const Login: React.FC<ILogin> = () => {
+  const classes = useStyles();
   return (
-    <Container>
-      <Typography variant="h5">Login</Typography>
-      <Button variant="contained" color="default" onClick={signInWithGoogle}>
-        Login with Google
-      </Button>
+    <Container maxWidth="sm">
+      <Paper className={classes.root}>
+        <Typography variant="h3" className={classes.title}>
+          Cards With Friends
+        </Typography>
+        <Typography variant="h5">Login</Typography>
+        <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={auth} />
+      </Paper>
     </Container>
   );
 };

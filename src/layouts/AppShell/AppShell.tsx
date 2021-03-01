@@ -7,6 +7,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import Avatar from "@material-ui/core/Avatar";
 import { Link } from "react-router-dom";
 import { auth } from "../../App";
+import UserMenu from "../../components/UserMenu";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -32,8 +33,6 @@ interface IAppShell {
 
 const AppShell: React.FC<IAppShell> = ({ children }) => {
   const classes = useStyles();
-  const [user] = useAuthState(auth);
-
   return (
     <div className={classes.root}>
       <AppBar position="static" color="default">
@@ -43,7 +42,7 @@ const AppShell: React.FC<IAppShell> = ({ children }) => {
               Cards With Friends
             </Link>
           </Typography>
-          <Avatar alt={user.displayName} src={user.photoURL} />
+          <UserMenu />
         </Toolbar>
       </AppBar>
       {children}

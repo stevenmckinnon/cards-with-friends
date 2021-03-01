@@ -9,7 +9,7 @@ import {
   Theme,
   Typography,
 } from "@material-ui/core";
-import { RouteProps, useHistory, useParams } from "react-router";
+import { Redirect, RouteProps, useHistory, useParams } from "react-router";
 import {
   useCollectionDataOnce,
   useDocument,
@@ -71,8 +71,13 @@ const GameBoard: React.FC<IGameBoard> = () => {
   if (gameLoading || blackCardsLoading || whiteCardsLoading) {
     return <Loading />;
   }
-
+  
   const game = gameData.data() as IGame;
+  
+  if (!game) {
+    return <Redirect to="/not-found" />
+  }
+
   const blackCards = blackCardsData as IBlackCard[];
   const whiteCards = whiteCardsData as IWhiteCard[];
   const isCreator = user.uid === game.createdBy.uid;

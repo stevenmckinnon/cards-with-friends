@@ -112,6 +112,8 @@ const Selection: React.FC<ISelectionProps> = ({
     }
   };
 
+  const displayPicksText = selections.length === playerCount;
+
   return (
     <Paper className={classes.root}>
       {isCzar && selections.length === playerCount && (
@@ -129,14 +131,19 @@ const Selection: React.FC<ISelectionProps> = ({
           </Grid>
         </Grid>
       )}
-      {selections.map((selection) => (
-        <WhiteCard
-          key={selection.id}
-          card={selection}
-          selectedCard={winningCard}
-          selectCard={updateWinningCard}
-        />
-      ))}
+      <Grid container spacing={1}>
+        {selections.map((selection) => (
+          <Grid item xs={6} sm={4} md={3} key={selection.id}>
+            <WhiteCard
+              card={selection}
+              selectedCard={winningCard}
+              selectCard={updateWinningCard}
+              displayText={displayPicksText}
+              isCzar={isCzar}
+            />
+          </Grid>
+        ))}
+      </Grid>
     </Paper>
   );
 };

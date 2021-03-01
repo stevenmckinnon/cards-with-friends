@@ -82,6 +82,8 @@ const UserDeck: React.FC<IUserDeck> = ({ gameId, whiteCards }) => {
     }
   };
 
+  const deckDisabled = whiteCards.length < 10;
+
   return (
     <Paper className={classes.myCards}>
       <Grid container spacing={1}>
@@ -109,6 +111,7 @@ const UserDeck: React.FC<IUserDeck> = ({ gameId, whiteCards }) => {
               card={card}
               selectedCard={selectedCard}
               selectCard={setSelectedCard}
+              disabled={deckDisabled}
             />
           </Grid>
         ))}

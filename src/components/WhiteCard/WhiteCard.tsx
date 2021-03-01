@@ -24,6 +24,9 @@ interface IWhiteCardProps {
   card: IWhiteCard;
   selectedCard: IWhiteCard | null;
   selectCard: (whiteCard: IWhiteCard | null) => void;
+  displayText?: boolean;
+  disabled?: boolean;
+  isCzar?: boolean;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -40,6 +43,19 @@ const useStyles = makeStyles((theme: Theme) =>
         transform: "scale(1.1)",
       },
     },
+    disabledCard: {
+      cursor: "default",
+      backgroundColor: theme.palette.action.disabledBackground,
+      "&:hover": {
+        transform: "none",
+      },
+    },
+    notCzar: {
+      cursor: "default",
+      "&:hover": {
+        transform: "none",
+      },
+    },
     selectedCard: {
       backgroundColor: theme.palette.primary.main,
       color: theme.palette.primary.contrastText,
@@ -54,23 +70,36 @@ const WhiteCard: React.FC<IWhiteCardProps> = ({
   card,
   selectCard,
   selectedCard,
+  disabled = false,
+  displayText = true,
+  isCzar,
 }) => {
   const classes = useStyles();
   const { value, id } = card;
+
+  const onClick = () => {
+    if (isCzar || !disabled) {
+      selectCard(card);
+    }
+  };
+
   return (
     <ThemeProvider theme={lightTheme}>
       <Card
         className={clsx(
           classes.card,
+          disabled && classes.disabledCard,
+          isCzar === false && classes.notCzar,
           selectedCard?.id === id && classes.selectedCard
         )}
-        onClick={() => selectCard(card)}
+        onClick={onClick}
       >
         <CardContent>
           <Typography
             variant="subtitle1"
             component="h3"
             className={classes.title}
+            hidden={!displayText}
           >
             {value}
           </Typography>

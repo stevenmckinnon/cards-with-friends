@@ -55,7 +55,7 @@ const PlayerList: React.FC<IPlayerListProps> = ({
             </ListItemAvatar>
             <ListItemText
               primary={`${player.displayName}${
-                host === player.uid && " (Host)"
+                host === player.uid ? " (Host)" : ""
               }`}
               secondary={
                 <Typography
